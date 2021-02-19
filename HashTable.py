@@ -7,33 +7,43 @@ class HashTable:
     self.arr = self.create_arr(size)
 
 
-  # 1️⃣ TODO: Complete the create_arr method.
-
-  # Each element of the hash table (arr) is a linked list.
-  # This method creates an array (list) of a given size and populates each of its elements with a LinkedList object.
-
   def create_arr(self, size):
-    pass
+    '''Create array of linkedlists'''
+    arr = []
 
+    for i in range(size):
+      new_ll = LinkedList()
+      arr.append(mew_ll)
 
+    return arr
 
-
-  # 2️⃣ TODO: Create your own hash function.
-
-  # Hash functions are a function that turns each of these keys into an index value that we can use to decide where in our list each key:value pair should be stored. 
 
   def hash_func(self, key):
-    pass
+    
+    # First, get the first letter of the key and cast to lowercase
+    first_letter = key[0].lower()
 
+    # Calculate distance of first_letter from a
+    distance = ord(first_letter) - ord('a')
 
+    # Index is determined by the remainder of (distance/array_size)
+    index = distance % self.size
 
+    # Return index of input
+    return index
 
-  # 3️⃣ TODO: Complete the insert method.
-
-  # Should insert a key value pair into the hash table, where the key is the word and the value is a counter for the number of times the word appeared. When inserting a new word in the hash table, be sure to check if there is a Node with the same key in the table already.
 
   def insert(self, key, value):
-    pass
+    
+    # First, determine the index to insert key and value at
+    # Key, in this case, is the word from the text fle
+    key_hash = self.hash_func(key) 
+
+    # Create a tuple of the key and value
+    item = (key, value)
+
+    # Insert tuple into selected linkedlist
+    self.arr[key_hash].append(item)
 
 
 
@@ -50,7 +60,8 @@ class HashTable:
   # erase: 2
 
   def print_key_values(self):
-    pass
-
-
-
+    
+    for linkedlist in self.arr:
+      linkedlist.print_nodes()
+      print('Moving to next linkedlist')
+    print('---Print complete---')
