@@ -13,6 +13,27 @@ class LinkedList:
     self.head = new_node
 
 
+  def find(self,item):
+
+    current = self.head
+
+    found = False
+    counter = 0
+
+    while current != None and not found:
+
+      if current.data[0] == item:
+        found = True
+        return current.data
+      else:
+        current = current.next
+        counter += 1
+
+    if found:
+      pass
+    else:
+      return -1
+
   def find_and_update(self,item):
 
     # Start at the head/first object of the LL

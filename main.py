@@ -73,7 +73,22 @@ print(f"🖨  All done! Here are all of the words from {filename} and their freq
 
 frequency_counter.print_key_values()
 
+counter = 0
+for bucket in frequency_counter.arr:
+  counter += bucket.length()
 
+print(f'Unique words: {counter}')
 
-# THIS IS TO ONLY BE USED FOR TESTING. THIS IS NOT A SOLUTION.
-# test_counter(words_in_file)
+def locate_value(key):
+  # Determine key_has from key
+  key_hash = frequency_counter.hash_func(key)
+
+  # Search the array at the index of the key_hash
+  returned_value = frequency_counter.arr[key_hash].find(key)
+
+  if returned_value == -1:
+    print('That key does not exist in the hashmap')
+  else:
+    print(f'Occurences of "{key}": {returned_value[1]}')
+
+locate_value(input('Find # of occurences of: '))
