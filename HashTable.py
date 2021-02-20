@@ -13,7 +13,7 @@ class HashTable:
 
     for i in range(size):
       new_ll = LinkedList()
-      arr.append(mew_ll)
+      arr.append(new_ll)
 
     return arr
 
@@ -42,22 +42,13 @@ class HashTable:
     # Create a tuple of the key and value
     item = (key, value)
 
-    # Insert tuple into selected linkedlist
-    self.arr[key_hash].append(item)
+    # Traverse the linkedlist at key_hash in array, and search for the key
+    # If the same key is found, read the associated value and increment by 1
+    new_tuple_to_insert = self.arr[key_hash].find_and_update(key)
 
+    if new_tuple_to_insert == -1:
+      self.arr[key_hash].append(item)
 
-
-
-  # 4️⃣ TODO: Complete the print_key_values method.
-
-  # Traverse through the every Linked List in the table and print the key value pairs.
-
-  # For example: 
-  # a: 1
-  # again: 1
-  # and: 1
-  # blooms: 1
-  # erase: 2
 
   def print_key_values(self):
     

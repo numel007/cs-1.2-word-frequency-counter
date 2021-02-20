@@ -13,42 +13,49 @@ class LinkedList:
     self.head = new_node
 
 
-  def find(self,item):
+  def find_and_update(self,item):
 
     # Start at the head/first object of the LL
     current = self.head
 
     found = False
-    counter = 0
 
     # Loop for as long as there are still items to search in the LL or the item has not been found
     while current != None and not found:
 
       # Set found to true if ite is located
-      if current.data == item:
+      if current.data[0] == item:
         found = True
-      # Search the next LL item and increase counter
+      # Search the next LL item
       else:
         current = current.next
-        counter += 1
 
     # When item is found or no items remain
     if found:
-      return counter
+      # Update current to an incremented value
+      value = current.data[1]
+      new_tuple = (current.data[0], (value + 1))
+      current.data = new_tuple
     else:
       return -1
 
 
-
   def length(self):
+
+    # Immediately return 0 if no object at head
     if self.head == None:
       return 0
+    # Set current to the first object in LL, instantiate counter at 1
     else:
       counter = 1
       current = self.head
+
+      # While current.next is True, traverse the LL and increment counter
       while(current.next):
         current = current.next
         counter +=1
+
+      # When current.next evaluates False, return counter
       return counter
 
 
