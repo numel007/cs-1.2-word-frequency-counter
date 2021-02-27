@@ -54,5 +54,3 @@ class HashTable:
     
     for linkedlist in self.arr:
       linkedlist.print_nodes()
-      print('Moving to next linkedlist')
-    print('---Print complete---')
