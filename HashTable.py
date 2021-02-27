@@ -1,4 +1,11 @@
 from LinkedList import LinkedList
+import requests
+import json
+import math
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class HashTable:
 
@@ -19,15 +26,38 @@ class HashTable:
 
 
   def hash_func(self, key):
-    
-    # First, get the first letter of the key and cast to lowercase
-    first_letter = key[0].lower()
 
-    # Calculate distance of first_letter from a
-    distance = ord(first_letter) - ord('a')
+    value = 0
+    print(f'Calculating hash for {key}')
 
-    # Index is determined by the remainder of (distance/array_size)
-    index = distance % self.size
+
+    for letter in key:
+
+      # Add letter to value
+      value += ord(letter)
+
+      # Request the current stock info
+      raw_data = requests.get(os.getenv('API_URL'))
+      print(f'Status code: {raw_data}')
+
+      # Handle if the api is down
+      if str(raw_data) == '<Response [200]>':
+        data = json.loads(raw_data.content)
+        print(f"Current price: {data['current']}")
+        print(f"Points change: {data['points_change']['points']}")
+
+        # Add current price to value, then divide by absolute val of GME's points up/down.
+        # NOTE: This means the resultant value will be changing if the market is open
+        # Pretty much, don't attempt to perform a search for a hash unless the hash was created while
+        # the market was closed, as well as having the search conducted before the market re-opens.
+        value += data['current'] / abs(data['points_change']['points'])
+      else:
+        print('API is down, skipping value modification')
+        break
+
+
+    # Index is determined by the remainder of (rounded value/array_size)
+    index = math.ceil(value) % self.size
 
     # Return index of input
     return index

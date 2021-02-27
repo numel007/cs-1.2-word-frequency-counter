@@ -91,4 +91,5 @@ def locate_value(key):
   else:
     print(f'Occurences of "{key}": {returned_value[1]}')
 
+print('Due to the way that hashes are calculated, only attempt to search if keys were calculated after market close and search was attempted before market re-open.')
 locate_value(input('Find # of occurences of: '))
